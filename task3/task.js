@@ -1,38 +1,46 @@
-var victoryCount = 0;
-var loseCount = 0;
+let victoryCount = 0;
+let loseCount = 0;
 const dead = document.getElementById("dead");
 const lost = document.getElementById("lost");
-var tmp = -1;
 
 function getHole(index){
 	let id = "hole"+index;
 	return document.getElementById(id);
 }
 
+function zeroCounts(isVictory=true){
+	victoryCount = 0;
+	loseCount = 0;
+	if (isVictory == true)
+	{
+		alert("Вы выиграли");	
+	}
+	else
+	{
+		alert("Вы проиграли");
+	}
+}
+
 for (let i = 1; i <10; i++){
-	var h = getHole(i);
+	let h = getHole(i);
 	if (h != null)
 		h.onclick = () =>{
 			if (h.className=='hole')
 			{
 				loseCount += 1;
-				dead.textContent = victoryCount;
-				lost.textContent = loseCount;
 				if (loseCount >=5)
 				{
-					victoryCount = 0;
-					loseCount = 0;
-					alert("Вы проиграли");
+					zeroCounts(false);
 				}
 			}
 			else{
 				victoryCount += 1;
 				if (victoryCount >= 10)
 				{
-					victoryCount = 0;
-					loseCount = 0;
-					alert("Вы выиграли");
+					zeroCounts(true);
 				}
 			}
+			dead.textContent = victoryCount;
+			lost.textContent = loseCount;
 		}
 }
